@@ -1,6 +1,6 @@
 <?php
 /**
- *      Title:      PageParse
+ *      Title:      page.class.php
  *      Author:     Joe Cohen
  *      Contact:    <deskofjoe@gmail.com>
  *      GitHub:     https://github.com/cojohen
@@ -44,31 +44,46 @@ class Page {
         
         // Remove elements between verses
         $CSV = preg_replace('{</P></TD>(.+?)<TD><P>}s' , "\n", $CSV);
+        $CSV = preg_replace('{</TD>(.+?)<TD><P>}s' , "\n", $CSV);
 
         // Remove <a>'s
         $CSV = preg_replace('{<A(.+?)>}s' , '', $CSV);
+        $CSV = preg_replace('{<a(.+?)>}s' , '', $CSV);
+
 
         // Remove </a>'s
         $CSV = preg_replace('{</A>}' , '', $CSV);
         
         // Remove all <br> ... \n
-        $CSV = preg_replace('{<BR>(.+?)\n}s' , "\n", $CSV);
+        //$CSV = preg_replace('{<BR>(.+?)\n}' , "\n", $CSV);
+        //$CSV = preg_replace('{<BR>(.+\s)}' , "\n", $CSV);
         
         // Remove footer beginning with </P></TD>
-        $CSV = preg_replace('{</P></TD>(.+?)</HTML>}s' , "\n", $CSV);
-
-        echo $CSV;
+        $CSV = preg_replace('{</P></TD>(.+?)</HTML>}s' , '', $CSV);
+        $CSV = preg_replace('{</TD></TR>(.+?)</HTML>}s' , '', $CSV);
+        $CSV = preg_replace('{<BR>(.+?)</HTML>}s' , '', $CSV);
+        $CSV = preg_replace('{</TD>(.+?)</HTML>}s' , '', $CSV);
         
-        //$this->dump(); 
-    }
+        
+        $CSV = preg_replace('{<BR>(.+\s)}' , "\n", $CSV);
+        $CSV = preg_replace('{<BR>(.+?)\n}s' , '', $CSV);
+        $CSV = preg_replace('{<br>(.+?)\n}s' , '', $CSV);
+        
+        //echo $CSV;
+        
+        $CSV = explode("\n", $CSV);
 
-    public function dump(){
-        echo $this->pageStr;
-    }
+        $CSVReturn = '';
 
+        foreach($CSV as $verse){
+
+            // format "(book)01,(chapter)02,Bible verse ...
+            $CSVReturn .= $this->book ."##". $this->chap ."##". trim($verse) ."\n";
+
+        }
+
+        return $CSVReturn;
+    }
 }
-
-$page = new Page('html/B01C001.htm');
-$page->toCSV();
 
 ?>
