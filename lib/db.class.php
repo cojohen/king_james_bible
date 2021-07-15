@@ -8,8 +8,6 @@
  *      Purpose: Execute queries on SQL databases
  *      
  *      
- *      
- *      
  */
 require(__DIR__.'/dbConfig.class.php');
 
@@ -145,6 +143,5 @@ class db {
 	    if (is_int($var)) return 'i';
 	    return 'b';
 	}
-
 }
 ?>
