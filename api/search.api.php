@@ -8,30 +8,36 @@
  *      Purpose:    Process search requests and return results
  *      
  */
+require_once(__DIR__.'/../lib/db.class.php');
 
-    $response ='{
-                    "results": [
-                        {
-                            "book" : "Genesis",
-                            "chap" :  "1",
-                            "verse":  "1",
-                            "text" :  "In the beginning God created the heaven and the earth."
-                        },
-                        {
-                            "book" : "Genesis",
-                            "chap" :  "2",
-                            "verse":  "1",
-                            "text" :  "Thus the heavens and the earth were finished, and all the host of them."
-                        },
-                        {
-                            "book" : "Genesis",
-                            "chap" :  "3",
-                            "verse":  "1",
-                            "text" :  "Now the serpent was more subtil than any beast of the field which the LORD God had made. And he said unto the woman, Yea, hath God said, Ye shall not eat of every tree of the garden?"
-                        },
-                    ]
-                }';
+if( isset($_REQUEST['q'] ) or true){
+    
+    $q_term = $_REQUEST['q'];
 
-    echo $response;
+    $search_q = filter_var($q_term, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH);
 
+    $sql = "SELECT books.book, text.chapter, text.verse, text.text  FROM kjv.text LEFT JOIN books ON text.book=books.id WHERE MATCH (`text`) AGAINST ('".$search_q."' IN NATURAL LANGUAGE MODE) LIMIT 25;";
+
+    $db = new db();
+    $db_rows = $db->query($sql)->fetchAll();
+
+    $response =
+    '{
+        "results": [';
+
+    foreach($db_rows as $row){
+        $response .='{
+            "book" : "'.$row["book"].'",
+            "chap" :  "'.$row["chapter"].'",
+            "verse":  "'.$row["verse"].'",
+            "text" :  "'.$row["text"].'"
+        },';
+    }
+
+    $response = substr($response, 0 , -1);  // Remove trailing comma
+    $response .=']}';
+
+}else{  $response = ''; }
+
+echo $response;
 ?>
