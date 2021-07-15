@@ -1,0 +1,57 @@
+/**
+ *      Title:      Style
+ *      Author:     Joe Cohen
+ *      Contact:    <deskofjoe@gmail.com>
+ *      GitHub:     https://github.com/cojohen
+ *      
+ */
+body {
+  background: #333;
+  color: #e8e8e8;
+  text-align: center;
+  font-size: 10pt;
+  font-family: "Courier New", Courier, monospace;
+}
+
+main {
+  width: 100%;
+}
+main h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 3em;
+  margin-top: 5em;
+}
+main #search-input {
+  display: block;
+  background-color: transparent;
+  border: solid 2px #e8e8e8;
+  border-radius: 1em;
+  color: #e8e8e8;
+  height: 2em;
+  width: 400px;
+  margin: 1em auto;
+}
+main #search-results {
+  width: 600px;
+  margin: 1em auto;
+}
+main #search-results #search-results-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+main #search-results #search-results-list li {
+  display: block;
+  height: 1.2em;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+main #search-results #search-results-list li div {
+  display: inline;
+  padding: 2px;
+  line-height: 1.2em;
+}
+
+/*# sourceMappingURL=style.css.map */
