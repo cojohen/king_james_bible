@@ -56,9 +56,9 @@
                 q: searchTerm
                 },
                 success: function( result ){
-                    // result is JSON
+                    // result is JSON as string
                     const rows = JSON.parse(result);
-                    const results = rows.results;
+                    results = rows.results;
 
                     var list_li = '';
                     

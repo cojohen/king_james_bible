@@ -35,7 +35,7 @@ if( isset($_REQUEST['q'] ) or true){
     }
 
     $response = substr($response, 0 , -1);  // Remove trailing comma
-    $response .=']}';
+    $response .='] }';
 
 }else{  $response = ''; }
 
