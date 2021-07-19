@@ -53,8 +53,9 @@ main #search-results #search-results-list li div {
   padding: 2px;
   line-height: 1.2em;
 }
-main #search-results #search-results-list li div b {
-  color: red;
+main #search-results #search-results-list li div .searchTerm {
+  color: #FFAB00;
+  font-weight: normal;
 }
 
 /*# sourceMappingURL=style.css.map */
