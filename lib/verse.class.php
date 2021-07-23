@@ -48,10 +48,10 @@ class Verse {
         if (!isset($this->text)) { $this->fetch(); } 
         
         $JSON = '{'.
-                    '"book" : "'.$this->book.'",'.
-                    '"chap" : "'.$this->chapter.'",'.
-                    '"verse": "'.$this->verse.'",'.
-                    '"text" : "'.$this->text.'"'.
+                    '"book":"'.$this->book.'",'.
+                    '"chap":"'.$this->chapter.'",'.
+                    '"verse":"'.$this->verse.'",'.
+                    '"text":"'.$this->text.'"'.
                 '}';
 
         return $JSON;

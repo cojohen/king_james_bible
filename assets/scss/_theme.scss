@@ -2,7 +2,7 @@
  
  body {
     background: $primary;
-    color: $content;
+    color: $white;
     text-align: center;
     font-size: 10pt;
     font-family: $font-main;
@@ -20,9 +20,9 @@ main {
     #search-input {
         display: block;
         background-color: transparent;
-        border: solid 2px $content;
+        border: solid 2px $grey;
         border-radius: 1em;
-        color: $content;
+        color: $white;
         height: 2em;
         width: 400px;
         margin: 1em auto;
@@ -42,19 +42,28 @@ main {
             li {
                 //border: solid 1px orange;
                 display: block;
-                height: 1.2em;
+                //height: 1.2em;
                 text-align: left;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                margin-bottom: .5em;
+                //white-space: nowrap;
+                //overflow: hidden;
+                //text-overflow: ellipsis; 
                 
                 div {
                     display: inline;
                     padding: 2px;
                     line-height: 1.2em;
                     
+                    &.book, &.ref {
+                        color: $grey;
+                        border-bottom: solid 1px $grey;
+                        padding-bottom: 0;
+                    }
+
+                    &.ref { margin-right: .5em;}
+
                     .searchTerm {
-                        color: $secondary;
+                        color: $gold;
                         font-weight: normal;
                     }
                 }

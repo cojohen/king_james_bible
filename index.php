@@ -16,13 +16,13 @@
         <title>KJV Search</title>
 
         <!-- CSS -->
-        <link href="assets/css/style.css?" rel="stylesheet" type="text/css">
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css">
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body>
         <main id="main">
-            <h1>Search the text</h1>
+            <h1>KJV Search</h1>
             <input type="text" id="search-input" name="search">
             <input type="button" id="search-submit" name="submit" value="Search">
             <div id="search-results">
@@ -57,22 +57,41 @@
                     if (result && result != '') {
                         // result is JSON as string
                         const rows = JSON.parse(result);
-                        results = rows.results;
-
+                        results = rows.collection;
                         var list_li = '';
-                        
-                        for (var i = 0; i < results.length; i++) {
 
+                        // build array of words/phrases to make bold
+                        let boldWords = [];
+                        const omitWords = ["a", "the", "and" ];
+
+                        try {
+                            // add "quoted search terms"
+                            const re = /"([^"]+)"/g;     
+                            searchTerm.match(re).forEach( (quoted) => {
+                                quoted = quoted.replaceAll('"', '');
+                                if (quoted.trim() != '' )
+                                    boldWords.push(quoted);
+                            });
+                        } catch (e) { console.log('Quote regex failed: ' + e); }
+                        
+                        // add individual search terms
+                        searchTerm.split(" ").forEach( (item) =>
+                        {
+                            if (!omitWords.includes(item) && item.trim() != '' )
+                                boldWords.push(item);
+                        });
+                        console.table(boldWords);
+                        // Parse the JSON response, format, make search terms bold
+                        for (var i = 0; i < results.length; i++) {
                             const verse = results[i];
                             
                             list_li += '<li>';
-                            list_li += '<div>' + verse["book"] + '</div>';
-                            list_li += '<div>' + verse["chap"] + '</div>';
-                            list_li += '<div>' + verse["verse"]+ '</div>';
+                            list_li += '<div class="book">' + verse["book"] + '</div>';
+                            list_li += '<div class="ref">' + verse["chap"] + ':' + verse["verse"] + '</div>';
                             
                             let verse_mod = verse["text"];
-                            
-                            searchTerm.split(" ").forEach( (item) =>
+                            //console.table(boldWords);
+                            boldWords.forEach( (item) =>
                             {
                                 verse_mod = verse_mod.replace(item, '<b class="searchTerm">'+item+'</b>');
                             });

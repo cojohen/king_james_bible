@@ -6,8 +6,8 @@
  *      
  */
 body {
-  background: #333;
-  color: #e8e8e8;
+  background: #333333;
+  color: #F6F6F6;
   text-align: center;
   font-size: 10pt;
   font-family: "Courier New", Courier, monospace;
@@ -24,9 +24,9 @@ main h1 {
 main #search-input {
   display: block;
   background-color: transparent;
-  border: solid 2px #e8e8e8;
+  border: solid 2px #CCCCCC;
   border-radius: 1em;
-  color: #e8e8e8;
+  color: #F6F6F6;
   height: 2em;
   width: 400px;
   margin: 1em auto;
@@ -42,16 +42,21 @@ main #search-results #search-results-list {
 }
 main #search-results #search-results-list li {
   display: block;
-  height: 1.2em;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0.5em;
 }
 main #search-results #search-results-list li div {
   display: inline;
   padding: 2px;
   line-height: 1.2em;
+}
+main #search-results #search-results-list li div.book, main #search-results #search-results-list li div.ref {
+  color: #CCCCCC;
+  border-bottom: solid 1px #CCCCCC;
+  padding-bottom: 0;
+}
+main #search-results #search-results-list li div.ref {
+  margin-right: 0.5em;
 }
 main #search-results #search-results-list li div .searchTerm {
   color: #FFAB00;

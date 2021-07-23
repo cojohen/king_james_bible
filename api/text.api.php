@@ -8,12 +8,14 @@
  *      Purpose:    Process search requests and return results
  *      
  */
-require_once(__DIR__.'/../lib/db.class.php');
+//require_once(__DIR__.'/../lib/db.class.php');
 require_once(__DIR__.'/../lib/collection.class.php');
 
-$collection = new Collection(array(2000, 2001, 2002));
+$searchTerm = '"jesus wept" and the a "so loved the world"';
 
-$JSON = $collection->toJSON(FALSE);
+$collection = new Collection();
+$collection->searchVerses($searchTerm);
+$JSON = $collection->toJSON(TRUE);
 
 echo $JSON;
 ?>
