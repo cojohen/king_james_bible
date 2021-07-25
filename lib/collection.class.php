@@ -14,7 +14,8 @@ class Collection {
 
     public $verses = array();
     public $omit_search_terms = array(" a ", " the ", " and ");
-    
+    public $search_result_size;
+
     public function __construct($ids = array()) {
         if (count($ids) > 0)
             $this->setByID($ids);
@@ -59,8 +60,13 @@ class Collection {
             }
 
             $JSON = substr($JSON, 0 , ($breaks ? -2 :-1));  // Removes trailing comma
-            $JSON .= '] }';
+            $JSON .= '], ';
+
+            $JSON .='"collection-size" : ' . count($this->verses) . ',';
+            $JSON .='"search-result-size" : ' . intval($this->search_result_size) . '';
+            $JSON .=' }';
         }
+
         return $JSON;
     }
     /**
@@ -88,9 +94,13 @@ class Collection {
             $search = str_replace($this->omit_search_terms, ' ', $phrase);   // omit needless search terms
             
             $sql = "SELECT DISTINCT text.id FROM kjv.text WHERE MATCH (`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) ORDER BY MATCH (`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) DESC LIMIT 20;";
-
             $db_rows = array_merge($db_rows, $db->query($sql)->fetchAll());
+
+            // update results count
+            $count_sql = "SELECT COUNT(text.id) AS `count` FROM kjv.text WHERE MATCH (`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) LIMIT 1";
+            $count_row = $db->query($count_sql)->fetchArray();
         }
+        
         // 3. Push IDs into verseIDs[] as ints
         if (count($db_rows)) {
             foreach ($db_rows as $row) {
@@ -101,6 +111,12 @@ class Collection {
         }
 
         $this->setByID($verseIDs);
+
+        // update result size
+        $this->search_result_size = (count($this->verses) > intval($count_row['count']) 
+                                        ? count($this->verses)
+                                        : intval($count_row['count']) );
+
     }
 
 }

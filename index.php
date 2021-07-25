@@ -19,10 +19,18 @@
         <link href="assets/css/style.css" rel="stylesheet" type="text/css">
         <!-- jQuery -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+        <link rel="manifest" href="assets/site.webmanifest">
     </head>
     <body>
         <main id="main">
-            <h1>KJV Search</h1>
+            <div id="logo">
+                <h1 class="text-reflect"><b class="KJV">KJV</b> Search</h1>
+            </div>
             <input type="text" id="search-input" name="search">
             <input type="button" id="search-submit" name="submit" value="Search">
             <div id="search-results">
@@ -47,22 +55,23 @@
          *  Process api call and JSON response
         */
         $("#search-submit").on('click', function(){
+
             let searchTerm = $("#search-input").val();
             $.ajax({
                 url : apiURL,
                 data: {
                 q: searchTerm
                 },
-                success: function( result ){
+                success: function(result) {
                     if (result && result != '') {
                         // result is JSON as string
                         const rows = JSON.parse(result);
-                        results = rows.collection;
+                        const results = rows.collection;
                         var list_li = '';
 
                         // build array of words/phrases to make bold
                         let boldWords = [];
-                        const omitWords = ["a", "the", "and" ];
+                        const omitWords = ["a", "A", "the", "The", "and", "And" ];
 
                         try {
                             // add "quoted search terms"
@@ -73,15 +82,15 @@
                                     boldWords.push(quoted);
                             });
                         } catch (e) { console.log('Quote regex failed: ' + e); }
-                        
-                        // add individual search terms
+
+                        // Build array of search terms, omitting omitWords
                         searchTerm.split(" ").forEach( (item) =>
                         {
-                            if (!omitWords.includes(item) && item.trim() != '' )
-                                boldWords.push(item);
+                            if (!omitWords.includes(item.replaceAll('"', '')) && item.trim() != '' )
+                                boldWords.push(item.replaceAll('"', ''));
                         });
-                        console.table(boldWords);
-                        // Parse the JSON response, format, make search terms bold
+                        
+                        // Build the list and make search terms bold
                         for (var i = 0; i < results.length; i++) {
                             const verse = results[i];
                             
@@ -90,19 +99,25 @@
                             list_li += '<div class="ref">' + verse["chap"] + ':' + verse["verse"] + '</div>';
                             
                             let verse_mod = verse["text"];
-                            //console.table(boldWords);
+
+                            // Sort boldWords by string length so "beginning" matches before "beg"
+                            boldWords.sort((a,b) => { return b.length - a.length; });
+
                             boldWords.forEach( (item) =>
                             {
-                                verse_mod = verse_mod.replace(item, '<b class="searchTerm">'+item+'</b>');
+                                const rex = '('+item+')';
+                                let bold_re = new RegExp(rex, 'i');
+                                verse_mod = verse_mod.replace(bold_re, '<b class="searchTerm">$1</b>');
+                                //console.log(verse_mod);
                             });
                             
                             list_li += '<div>' + verse_mod + '</div>';
                             list_li += '</li>';
                         }
-
-                        $("#search-results-list").html(list_li);
+                        //$("#search-results-list").fadeOut().next().delay(100);
+                        $("#search-results-list").hide().html(list_li).fadeIn("slow");
                     } else {
-                        $("#search-results-list").html('No results');
+                        $("#search-results-list").html('No results').hide().fadeIn("slow");
                     }
                 }
             });
