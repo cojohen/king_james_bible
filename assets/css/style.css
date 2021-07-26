@@ -1,5 +1,5 @@
 /**
- *      Title:      Style
+ *      Title:      KJV Search Style
  *      Author:     Joe Cohen
  *      Contact:    <deskofjoe@gmail.com>
  *      GitHub:     https://github.com/cojohen
@@ -7,7 +7,7 @@
  */
 body {
   background: #000D14;
-  color: #F6F6F6;
+  color: #FFFFFF;
   text-align: center;
   font-size: 10pt;
   font-family: "Courier New", Courier, monospace;
@@ -33,7 +33,7 @@ body main #search-input {
   background-color: transparent;
   border: solid 2px #EAE2B7;
   border-radius: 1em;
-  color: #F6F6F6;
+  color: #FFFFFF;
   height: 2em;
   width: 400px;
   margin: 1em auto;
@@ -78,6 +78,35 @@ body main #search-results #search-results-list li div .searchTerm {
 
 r {
   color: #D62828;
+}
+
+main#bible {
+  border: solid 1px white;
+  max-width: 800px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 3em;
+}
+main#bible h2 {
+  color: #FFFFFF;
+  font-size: 28pt;
+  display: inline-block;
+}
+main#bible h3 {
+  color: #FFFFFF;
+  font-size: 28pt;
+  display: inline;
+  margin: 0;
+}
+main#bible p {
+  font-size: 12pt;
+  padding: 0em 3em;
+}
+main#bible p span {
+  color: #FCBF49;
+  font-size: 9pt;
+  padding: 3px;
+  display: inline;
 }
 
 /*# sourceMappingURL=style.css.map */

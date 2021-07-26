@@ -56,6 +56,15 @@ class Verse {
 
         return $JSON;
     }
+
+    public function toPageText() {
+        if (!isset($this->text)) { $this->fetch(); }
+
+        $pageText  = '<span class="v">' . $this->verse . '</span>';
+        $pageText .= $this->text;
+
+        return $pageText;
+    }
 }
 
 ?>

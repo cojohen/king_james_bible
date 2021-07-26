@@ -15,6 +15,8 @@ class Collection {
     public $verses = array();
     public $omit_search_terms = array(" a ", " the ", " and ");
     public $search_result_size;
+    private $book;
+    private $chapter;
 
     public function __construct($ids = array()) {
         if (count($ids) > 0)
@@ -29,6 +31,40 @@ class Collection {
             $this->verses[] = new Verse($id);
         }
     }
+
+    public function getBook() {
+        return $this->book;
+    }
+
+    public function getChapter() {
+        return $this->chapter;
+    }
+    /**
+     * @param string book
+     * @param int chapter
+     *   ex. 'revelation' or 'genesis', 14
+     */
+    public function loadChapter($book = '', $chapter = 1) {
+        if ($book AND $chapter) {
+            $db = new db();
+            // Validate $book is an actual book
+            $q = "SELECT books.id, books.book FROM kjv.books WHERE (books.book='$book') LIMIT 1";
+            
+            if ($db->query($q)->numRows() > 0) { // Book valid
+                $row = $db->fetchArray();
+                $this->book = $row['book'];
+                $this->chapter = $chapter;
+            } else { return false;  }           // Not a valid book
+            
+            // Get verse ids for this book and chapter
+            $q = "SELECT text.id AS id FROM kjv.text WHERE text.book=" . $row['id'] . " AND text.chapter=" . $chapter . " ORDER BY text.id LIMIT 180";
+            $rows = $db->query($q)->fetchAll();
+            
+            foreach($rows as $row) { $ids[] = $row['id']; }
+            
+            $this->setByID($ids);
+        }
+    }
     /**
      * @param bool breaks
      * 
@@ -36,13 +72,18 @@ class Collection {
      */
     public function toListElements($breaks = FALSE) {
         $list = '';
-        
         foreach ($this->verses as $verse) {
             $list .= $verse->toListItem;
             $list .= ($breaks ? "\n" : '');
         }
-
         return $list;
+    }
+    public function toBibleText() {
+        $page = '';
+        foreach ($this->verses as $verse) {
+            $page .= $verse->toPageText();
+        }
+        return $page;
     }
     /**
      * @param bool breaks
@@ -100,7 +141,6 @@ class Collection {
             $count_sql = "SELECT COUNT(text.id) AS `count` FROM kjv.text WHERE MATCH (`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) LIMIT 1";
             $count_row = $db->query($count_sql)->fetchArray();
         }
-        
         // 3. Push IDs into verseIDs[] as ints
         if (count($db_rows)) {
             foreach ($db_rows as $row) {
@@ -111,7 +151,6 @@ class Collection {
         }
 
         $this->setByID($verseIDs);
-
         // update result size
         $this->search_result_size = (count($this->verses) > intval($count_row['count']) 
                                         ? count($this->verses)
