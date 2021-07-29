@@ -46,18 +46,16 @@ class Collection {
      */
     public function loadChapter($book = '', $chapter = 1) {
         if ($book AND $chapter) {
+            $book = str_replace('_', ' ', $book);
             $db = new db();
-            // Validate $book is an actual book
-            $q = "SELECT books.id, books.book FROM kjv.books WHERE (books.book='$book') LIMIT 1";
+
+            // assuming valid book & chapter
+            $this->book = ucfirst($book);
+            $this->chapter = $chapter;
             
-            if ($db->query($q)->numRows() > 0) { // Book valid
-                $row = $db->fetchArray();
-                $this->book = $row['book'];
-                $this->chapter = $chapter;
-            } else { return false;  }           // Not a valid book
             
             // Get verse ids for this book and chapter
-            $q = "SELECT text.id AS id FROM kjv.text WHERE text.book=" . $row['id'] . " AND text.chapter=" . $chapter . " ORDER BY text.id LIMIT 180";
+            $q = "SELECT text.id AS id FROM kjv.text LEFT JOIN kjv.books ON text.book=books.id WHERE books.book='$book' AND text.chapter=$chapter ORDER BY text.id LIMIT 180;";
             $rows = $db->query($q)->fetchAll();
             
             foreach($rows as $row) { $ids[] = $row['id']; }
@@ -70,18 +68,21 @@ class Collection {
      * 
      * returns string list
      */
-    public function toListElements($breaks = FALSE) {
+    public function getListElements($breaks = FALSE) {
         $list = '';
         foreach ($this->verses as $verse) {
-            $list .= $verse->toListItem;
+            $list .= $verse->getListItem;
             $list .= ($breaks ? "\n" : '');
         }
         return $list;
     }
-    public function toBibleText() {
+    /**
+     * @param int[] flags -- verses to flag
+     */
+    public function getBibleText($flags = array()) {
         $page = '';
         foreach ($this->verses as $verse) {
-            $page .= $verse->toPageText();
+            $page .= $verse->getPageText($flags);
         }
         return $page;
     }
@@ -90,13 +91,13 @@ class Collection {
      * 
      * returns string JSON
      */
-    public function toJSON($breaks = FALSE) {
+    public function getJSON($breaks = FALSE) {
         $JSON = '';
         
         if (count($this->verses) > 0) {
             $JSON .= '{ "collection" : [';
             foreach ($this->verses as $verse) {
-                $JSON .= $verse->toJSON().',';
+                $JSON .= $verse->getJSON().',';
                 $JSON .= ($breaks ? "\n" : '');
             }
 
@@ -148,14 +149,15 @@ class Collection {
                     $verseIDs[] = intval($row["id"]);
                 }
             }
-        }
+        
 
-        $this->setByID($verseIDs);
-        // update result size
-        $this->search_result_size = (count($this->verses) > intval($count_row['count']) 
-                                        ? count($this->verses)
-                                        : intval($count_row['count']) );
-
+            $this->setByID($verseIDs);
+            // update result size
+            $this->search_result_size = (count($this->verses) > intval($count_row['count']) 
+                                            ? count($this->verses)
+                                           : intval($count_row['count']) );
+        } else {
+            $this->search_result_size = 0;
+        }                               
     }
-
 }
