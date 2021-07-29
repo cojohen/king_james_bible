@@ -23,15 +23,44 @@ main#bible {
     p {
         font-size: 12pt;
         padding: 0em 3em;
-        //border: solid 1px green;
 
-        span { 
+        span.v { 
             color: $KJV;
-            //border: solid 1px blue;
             font-size: 9pt;
             padding: 3px;
-            //margin: 0 .25em 1em 0;
-            display: inline;
+            //display: inline;
+        }
+
+        span.flag {
+            //color: $KJV;
+            text-decoration: underline;
+        }
+    }
+}
+
+main#nav-menu {
+    border: solid 1px white;
+    max-width: 800px;
+    text-align: left;
+    margin: 0 auto;
+    padding: 3em;
+    h2 {
+        max-width: 300px;
+        margin: 0 auto;
+        text-decoration: underline;
+    }
+    ul#nav-links {
+        padding: 0;
+        max-width: 300px;
+        margin: 0 auto;
+        li {
+            list-style-type: none;
+            a {
+                display: block; 
+                font-size: 14pt;
+                color: $white;
+                text-decoration: none;
+            }
         }
     }
 

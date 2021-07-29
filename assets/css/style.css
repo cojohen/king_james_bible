@@ -102,11 +102,40 @@ main#bible p {
   font-size: 12pt;
   padding: 0em 3em;
 }
-main#bible p span {
+main#bible p span.v {
   color: #FCBF49;
   font-size: 9pt;
   padding: 3px;
-  display: inline;
+}
+main#bible p span.flag {
+  text-decoration: underline;
+}
+
+main#nav-menu {
+  border: solid 1px white;
+  max-width: 800px;
+  text-align: left;
+  margin: 0 auto;
+  padding: 3em;
+}
+main#nav-menu h2 {
+  max-width: 300px;
+  margin: 0 auto;
+  text-decoration: underline;
+}
+main#nav-menu ul#nav-links {
+  padding: 0;
+  max-width: 300px;
+  margin: 0 auto;
+}
+main#nav-menu ul#nav-links li {
+  list-style-type: none;
+}
+main#nav-menu ul#nav-links li a {
+  display: block;
+  font-size: 14pt;
+  color: #FFFFFF;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=style.css.map */
