@@ -5,10 +5,8 @@
  *      Contact:    <deskofjoe@gmail.com>
  *      GitHub:     https://github.com/cojohen
  * 
- *      Purpose:    Process search requests and return results
- *      
+ *      Purpose:    Process search requests and return results   
  */
-//require_once(__DIR__.'/../lib/db.class.php');
 require_once(__DIR__.'/../lib/collection.class.php');
 
 $response = '';
@@ -21,7 +19,7 @@ if (isset($_REQUEST['q'])) {
     
     $verses = new Collection();
     $verses->searchVerses($strippedRequest);
-    $response = $verses->toJSON();
+    $response = $verses->getJSON();
 
 } 
     

@@ -21,7 +21,8 @@ $("#search-submit").on('click', function(){
         q: searchTerm
         },
         success: function(result) {
-            if (result && result != '') {
+            if (result && result.trim() != '') {
+                console.log('Result:'+result);
                 // result is JSON as string
                 const rows = JSON.parse(result);
                 const results = rows.collection;
@@ -53,8 +54,10 @@ $("#search-submit").on('click', function(){
                     const verse = results[i];
                     
                     list_li += '<li>';
-                    list_li += '<div class="book">' + verse["book"] + '</div>';
-                    list_li += '<div class="ref">' + verse["chap"] + ':' + verse["verse"] + '</div>';
+                    list_li += '<a href="http://localhost/php/kjv/bible/'+ 
+                        verse["book"].replace(' ', '_')+'/'+verse["chap"]+'/'+verse["verse"]+
+                        '/"><div class="book">' + verse["book"] + '</div>';
+                    list_li += '<div class="ref">' + verse["chap"] + ':' + verse["verse"] + '</div></a>';
                     
                     let verse_mod = verse["text"];
 

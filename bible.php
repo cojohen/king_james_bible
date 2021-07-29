@@ -13,6 +13,7 @@
 function showBiblePage($slugs = NULL) {
     require 'includes/globals.php';
     require_once 'lib/collection.class.php';
+    require_once 'lib/bible.class.php';
 
     /*
         [0] => bible      
@@ -21,25 +22,41 @@ function showBiblePage($slugs = NULL) {
         [3] => 2
     */
     // set request variables
-    $req['book']  = isset($slugs[1]) ? filter_var($slugs[1], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) : NULL;
+    $req['book']  = isset($slugs[1]) ? ucfirst(filter_var($slugs[1], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH)) : NULL;
+    $req['book']  = str_replace('_', ' ', $req['book']);
     $req['chap']  = isset($slugs[2]) ? filter_var($slugs[2], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) : NULL;
-    $req['verse'] = isset($slubs[3]) ? filter_var($slugs[3], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) : NULL;
-    print_r($req);
+    $req['verse'] = isset($slugs[3]) ? filter_var($slugs[3], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH) : NULL;
+    //print_r($req);
+
     $Collection = new Collection();
     $kjv_book = '';
     $kjv_chapter = '';
     $kjv_content = '';
+    $are_you_lost = FALSE;
 
-    // switch on request variables
+    // switch on URL slugs
     switch (TRUE) {
         case ($req['book'] && $req['chap'] && $req['verse']):
-            
+            if (Verse::isValidReference($req['book'], intval($req['chap']), intval($req['verse']))) {
+                $verse_id = Verse::getIDByReference($req['book'], intval($req['chap']), intval($req['verse']));
+                $Collection->loadChapter($req['book'], $req['chap']);
+                $kjv_book    = $Collection->getBook();
+                $kjv_chapter = $Collection->getChapter();
+                $kjv_content = $Collection->getBibleText(array($verse_id));
+            } else {
+                $are_you_lost = TRUE;
+            }
             break;
         case ($req['book'] && $req['chap']):
-            $Collection->loadChapter($req['book'], $req['chap']);
-            $kjv_book = $Collection->getBook();
-            $kjv_chapter = $Collection->getChapter();
-            $kjv_content = $Collection->toBibleText();
+            if (Verse::isValidReference($req['book'], intval($req['chap']))) {
+                $Collection->loadChapter($req['book'], $req['chap']);
+                $kjv_book    = $Collection->getBook();
+                $kjv_chapter = $Collection->getChapter();
+                $kjv_content = $Collection->getBibleText();
+            } else {
+                $are_you_lost = TRUE;
+                header("Location: " . $_site_document_root . 'bible/');
+            }
             break;
         case ($req['book']):
             // Go to chapter 1 if no chapter specified
@@ -47,8 +64,7 @@ function showBiblePage($slugs = NULL) {
             die();
             break;
         default:
-            // Show navigation menu
-            $kjv_content = "<h2>navigation menu</h2><p>Gen, Ex, Lev, ...</p>";
+            $are_you_lost = TRUE;
             break;
     }
 
@@ -67,19 +83,36 @@ function showBiblePage($slugs = NULL) {
     <body>
         <header id="page-header">
             <div id="logo">
-                    <a href="<?=$_site_document_root;?>"><h1 class="text-reflect">Search <b class="KJV">KJV</b></h1></a>
+                    <a href="<?=$_site_document_root;?>"><h1>Search <b class="KJV">KJV</b></h1></a>
             </div>
             <div id="bible-navigation">
                 <?php
-                include 'includes/bible-navigation.php';
+                //include 'includes/bible-navigation.php';
                 ?>
             </div>
         </header>
+<?php
+        if ($are_you_lost) {
+            // Display navigation menu
+            $nav_menu_links = Bible::getBooksAsLinks();
+?>
+        <main id="nav-menu">
+            <h2>Select a book</h2>
+            <ul id="nav-links">
+                <?=$nav_menu_links;?>
+            </ul>  
+        </main>
+<?php            
+        } else {
+?>
         <main id="bible">   
             <h2 id="book-title"><?=$kjv_book;?></h2>
             <h3 class="chapter-title"><?=$kjv_chapter;?></h3>
             <p class="bible-text"><?=$kjv_content;?></p>
         </main>
+<?php
+        }
+?>
     </body>
 </html>
 <?php

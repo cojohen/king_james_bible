@@ -15,7 +15,6 @@
 *
 *      
 ***********************************************************/
-require_once 'includes/globals.php';
 
 $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 $scriptName = explode('/',$_SERVER['SCRIPT_NAME']);
