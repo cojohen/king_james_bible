@@ -15,7 +15,7 @@ function showSearchPage() {
         include '../templates/includes/jquery.php';
         include '../templates/includes/favicon.php';
 ?>
-        <script defer type="text/javascript" src="<?=$_site_document_root;?>js/search.js"></script>
+        <script defer type="text/javascript" src="<?=$_site_document_root;?>assets/scripts/search.js"></script>
     </head>
     <body>
         <main id="main">

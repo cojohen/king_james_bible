@@ -2,7 +2,7 @@
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
-require('../config/DBConfig.php');
+require(__DIR__.'/../config/DBConfig.php');
 
 class DB 
 {

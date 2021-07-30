@@ -2,6 +2,8 @@ Options +FollowSymLinks
 # Turn on the RewriteEngine
 RewriteEngine On
 #  Rules
+RewriteCond %{REQUEST_URI} !(/$|\.) 
+RewriteRule (.*) %{REQUEST_URI}/ [R=301,L] 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /php/kjv/index.php
+RewriteRule ^(.*)$ /kjv/public/index.php
