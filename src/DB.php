@@ -1,18 +1,11 @@
 <?php
-/**
- *      Title:      db.class.php
- *      Author:     Joe Cohen
- *      Contact:    <deskofjoe@gmail.com>
- *      GitHub:     https://github.com/cojohen
- * 
- *      Purpose: Execute queries on SQL databases
- *      
- *      
- */
-require(__DIR__.'/dbConfig.class.php');
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
+require('../config/DBConfig.php');
 
-class db {
-
+class DB 
+{
     protected $connection;
 	protected $query;
     protected $show_errors = TRUE;
@@ -20,14 +13,19 @@ class db {
 	public $query_count = 0;
 
 	public function __construct() {
+        $config = new DBConfig();
         
-        $config = new dbConfig();
-        
-		$this->connection = new mysqli($config->db_host, $config->db_user, $config->db_pass, $config->db_name, 0, '/opt/lampp/var/mysql.sock');
+		$this->connection = new mysqli
+            (
+            $config->db_host, 
+            $config->db_user, 
+            $config->db_pass, 
+            $config->db_name, 0, 
+            '/opt/lampp/var/mysql.sock'
+            );
+
 		if ($this->connection->connect_error) {
-            //echo "$config->db_host, $config->db_user, $config->db_pass, $config->db_name";
-			$this->error('Failed to connect to MySQL - ' . $this->connection->connect_error);
-            
+            $this->error('Failed to connect to MySQL - ' . $this->connection->connect_error);
 		}
 		$this->connection->set_charset($config->db_charset);
 	}
@@ -67,7 +65,6 @@ class db {
         }
 		return $this;
     }
-
 
 	public function fetchAll($callback = null) {
 	    $params = array();
@@ -144,4 +141,3 @@ class db {
 	    return 'b';
 	}
 }
-?>

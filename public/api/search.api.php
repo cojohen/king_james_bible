@@ -1,13 +1,8 @@
 <?php
-/**
- *      Title:      Search API
- *      Author:     Joe Cohen
- *      Contact:    <deskofjoe@gmail.com>
- *      GitHub:     https://github.com/cojohen
- * 
- *      Purpose:    Process search requests and return results   
- */
-require_once(__DIR__.'/../lib/collection.class.php');
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
+require_once('../../src/Collection.php');
 
 $response = '';
 
@@ -20,7 +15,6 @@ if (isset($_REQUEST['q'])) {
     $verses = new Collection();
     $verses->searchVerses($strippedRequest);
     $response = $verses->getJSON();
-
 } 
     
 echo $response;

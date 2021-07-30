@@ -1,21 +1,7 @@
 <?php
-/***********************************************************
-*      Title:      index.php
-*      Author:     Joe Cohen
-*      Contact:    <deskofjoe@gmail.com>
-*      GitHub:     https://github.com/cojohen
-* 
-*      Purpose:    Process URL requests for this domain.
-* Rewrite URLs into create clean URLs. Direct flow by serving
-* appropriate page resources.
-*
-*   Ex. http://this-site/bible.php?book=Genesis&chapter=1
-*               will be rewritten to:
-*       http://this-site/bible/genesis/1/
-*
-*      
-***********************************************************/
-
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
 $requestURI = explode('/', $_SERVER['REQUEST_URI']);
 $scriptName = explode('/',$_SERVER['SCRIPT_NAME']);
 

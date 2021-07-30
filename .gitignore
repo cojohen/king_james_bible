@@ -1,1 +1,3 @@
-lib/dbConfig.class.php
+var/
+vendor/
+config/DBConfig.php

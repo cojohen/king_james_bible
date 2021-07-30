@@ -1,17 +1,11 @@
 <?php
-/**
- *      Title:          collection.class.php
- *      Author:         Joe Cohen
- *      Contact:        <deskofjoe@gmail.com>
- *      GitHub:         https://github.com/cojohen
- * 
- *      Purpose:        A collection of verses.
- *            
- */
-require(__DIR__.'/verse.class.php');
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
+require('Verse.php');
 
-class Collection {
-
+class Collection
+{
     public $verses = array();
     public $omit_search_terms = array(" a ", " the ", " and ");
     public $search_result_size;
@@ -47,12 +41,11 @@ class Collection {
     public function loadChapter($book = '', $chapter = 1) {
         if ($book AND $chapter) {
             $book = str_replace('_', ' ', $book);
-            $db = new db();
+            $db = new DB();
 
             // assuming valid book & chapter
             $this->book = ucfirst($book);
             $this->chapter = $chapter;
-            
             
             // Get verse ids for this book and chapter
             $q = "SELECT text.id AS id FROM kjv.text LEFT JOIN kjv.books ON text.book=books.id WHERE books.book='$book' AND text.chapter=$chapter ORDER BY text.id LIMIT 180;";
@@ -118,7 +111,7 @@ class Collection {
      */
     public function searchVerses($phrase = '') {
         $verseIDs = array();
-        $db = new db();
+        $db = new DB();
         $quotedSearchTerms = array();
         $db_rows = array();
 
@@ -150,7 +143,6 @@ class Collection {
                 }
             }
         
-
             $this->setByID($verseIDs);
             // update result size
             $this->search_result_size = (count($this->verses) > intval($count_row['count']) 

@@ -1,22 +1,15 @@
 <?php
-/**
- *      Title:          bible.class.php
- *      Author:         Joe Cohen
- *      Contact:        <deskofjoe@gmail.com>
- *      GitHub:         https://github.com/cojohen
- * 
- *      Purpose:        Gets resources from the Bible
- *            
- */
-require_once(__DIR__.'/collection.class.php');
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
 
-class Bible {
-
+class Bible
+{
     public function __construct(){}
     
     public static function getBooksAsLinks($testament = 'all'){
         $links = '';
-        $db = new db();
+        $db = new DB();
         $q = "SELECT books.book FROM kjv.books ORDER BY id ASC LIMIT 66";
         $row = $db->query($q)->fetchAll();
 

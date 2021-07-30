@@ -1,26 +1,12 @@
 <?php
-/**
- *      Title:      Bible
- *      Author:     Joe Cohen
- *      Contact:    <deskofjoe@gmail.com>
- *      GitHub:     https://github.com/cojohen
- * 
- *      Purpose:    Display section of the Bible as a single
- *          chapter or verse.  
- */
-
-
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
 function showBiblePage($slugs = NULL) {
-    require 'includes/globals.php';
-    require_once 'lib/collection.class.php';
-    require_once 'lib/bible.class.php';
+    require '../templates/includes/globals.php';
+    require_once '../src/Collection.php';
+    require_once '../src/Bible.php';
 
-    /*
-        [0] => bible      
-        [1] => genesis 
-        [2] => 1 
-        [3] => 2
-    */
     // set request variables
     $req['book']  = isset($slugs[1]) ? ucfirst(filter_var($slugs[1], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH)) : NULL;
     $req['book']  = str_replace('_', ' ', $req['book']);
@@ -75,9 +61,9 @@ function showBiblePage($slugs = NULL) {
         <meta charset="utf-8">
         <title><?=$_site_title;?>-<?=$req['book'].' '.$req['chap'];?></title>
 <?php 
-        include 'includes/styles.php';
-        include 'includes/jquery.php';
-        include 'includes/favicon.php';
+        include '../templates/includes/styles.php';
+        include '../templates/includes/jquery.php';
+        include '../templates/includes/favicon.php';
 ?>
     </head>
     <body>

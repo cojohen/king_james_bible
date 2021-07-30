@@ -1,12 +1,7 @@
 <?php
-/**
- *      Title:      Search
- *      Author:     Joe Cohen
- *      Contact:    <deskofjoe@gmail.com>
- *      GitHub:     https://github.com/cojohen
- * 
- *      Purpose:    Search the database of KJV verses 
- */
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
 function showSearchPage() {
 ?>
 <!DOCTYPE html>
@@ -15,10 +10,10 @@ function showSearchPage() {
         <meta charset="utf-8">
         <title>Search KJV</title>
 <?php 
-        include 'includes/globals.php';
-        include 'includes/styles.php';
-        include 'includes/jquery.php';
-        include 'includes/favicon.php';
+        include '../templates/includes/globals.php';
+        include '../templates/includes/styles.php';
+        include '../templates/includes/jquery.php';
+        include '../templates/includes/favicon.php';
 ?>
         <script defer type="text/javascript" src="<?=$_site_document_root;?>js/search.js"></script>
     </head>

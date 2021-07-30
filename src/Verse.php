@@ -1,16 +1,11 @@
 <?php
-/**
- *      Title:      verse.class.php
- *      Author:     Joe Cohen
- *      Contact:    <deskofjoe@gmail.com>
- *      GitHub:     https://github.com/cojohen
- * 
- *      Purpose:    A single verse from the KJV      
- */
-require_once(__DIR__.'/db.class.php');
+ /**
+  * @author Joe Cohen <joe@dingocode.com>
+  */
+require_once('DB.php');
 
-class Verse {
-
+class Verse
+{
     public int $id;
     public string $book;
     public int $chapter;
@@ -27,7 +22,7 @@ class Verse {
 
     public function fetch() { 
         $q = "SELECT books.book, text.chapter, text.verse, text.text  FROM kjv.text LEFT JOIN books ON text.book=books.id WHERE text.id=".$this->id;
-        $db = new db();
+        $db = new DB();
         $row = $db->query($q)->fetchArray();
         
         $this->book     = $row['book'];
@@ -94,7 +89,7 @@ class Verse {
             return FALSE;
         }
 
-        $db = new db();
+        $db = new DB();
 
         return ($db->query($q)->numRows() > 0) 
             ?   TRUE
@@ -110,11 +105,10 @@ class Verse {
         if($book AND $chap AND $verse){
             $q = "SELECT text.id AS id FROM kjv.text LEFT JOIN books ON text.book=books.id WHERE (books.book='$book' AND text.chapter=$chap AND text.verse=$verse) LIMIT 1"; 
         
-            $db = new db();
+            $db = new DB();
             $id = $db->query($q)->fetchArray()['id'];
             
         }
         return $id;        
     }
 }
-?>
