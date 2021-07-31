@@ -1,20 +1,23 @@
 <?php
+
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
+
 $requestURI = explode('/', $_SERVER['REQUEST_URI']);
-$scriptName = explode('/',$_SERVER['SCRIPT_NAME']);
+$scriptName = explode('/', $_SERVER['SCRIPT_NAME']);
 
 for ($i = 0; $i < sizeof($scriptName); $i++) {
-    if ($requestURI[$i] == $scriptName[$i]) unset($requestURI[$i]);
+    if ($requestURI[$i] == $scriptName[$i]) {
+        unset($requestURI[$i]);
+    }
 }
 
 $urlSlugs = array_values($requestURI);
 $baseSlug = $urlSlugs[0];
 
-switch($baseSlug)
-{
-    case 'bible' :
+switch ($baseSlug) {
+    case 'bible':
         require 'bible.php';
         showBiblePage($urlSlugs);
         break;
@@ -33,5 +36,3 @@ switch($baseSlug)
         show404Page();
         break;
 }
-
-?>
