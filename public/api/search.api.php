@@ -3,8 +3,13 @@
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
+namespace KJV;
 
-  require_once('../../src/Collection.php');
+use KJV\Bible;
+
+require_once('../../src/Collection.php');
+
+
 
 $response = '';
 
@@ -19,7 +24,7 @@ if (isset($_REQUEST['q'])) {
 
     $response = '';
 
-    $verses = new Collection();
+    $verses = new Bible\Collection();
     $verses->searchVerses($strippedRequest);
     $response = $verses->getJSON();
 }

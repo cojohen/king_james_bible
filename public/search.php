@@ -3,6 +3,7 @@
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
+namespace KJV;
 
 function showSearchPage(): void
 {

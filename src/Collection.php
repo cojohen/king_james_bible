@@ -3,8 +3,10 @@
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
-
 namespace KJV\Bible;
+
+require_once 'DB.php';
+require_once 'Verse.php';
 
 class Collection
 {

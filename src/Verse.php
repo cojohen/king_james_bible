@@ -4,7 +4,9 @@
   * @author Joe Cohen <joe@dingocode.com>
   */
 
-namespace KYV\Bible;
+namespace KJV\Bible;
+
+require_once 'DB.php';
 
 class Verse
 {
@@ -97,7 +99,7 @@ class Verse
     public static function isValidReference($book = '', $chap = 0, $verse = 0): bool
     {
         if ($book and $chap and $verse) {
-            $q = "SELECT text.id FROM kjv.text LEFT JOIN books text.book=books.id " .
+            $q = "SELECT text.id FROM kjv.text LEFT JOIN books ON text.book=books.id " .
             "WHERE (books.book='$book' AND text.chapter=$chap AND text.verse=$verse) " .
             "LIMIT 1";
         } elseif ($book and $chap) {

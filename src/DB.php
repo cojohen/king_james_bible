@@ -4,8 +4,9 @@
   * @author Joe Cohen <joe@dingocode.com>
   */
 
-namespace KJV\DB;
+namespace KJV\Bible;
 
+require_once __DIR__.'/../config/DBConfig.php';
 class DB
 {
     protected $connection;
@@ -18,7 +19,7 @@ class DB
     {
         $config = new DBConfig();
 
-        $this->connection = new mysqli(
+        $this->connection = new \mysqli(
             $config->db_host,
             $config->db_user,
             $config->db_pass,

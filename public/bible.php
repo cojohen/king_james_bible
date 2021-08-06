@@ -3,6 +3,7 @@
 /**
   * @author Joe Cohen <joe@dingocode.com>
   */
+namespace KJV;
 
 function showBiblePage($slugs = null): void
 {
@@ -36,7 +37,7 @@ function showBiblePage($slugs = null): void
     )
     : null;
 
-    $Collection = new Collection();
+    $Collection = new Bible\Collection();
     $kjv_book = '';
     $kjv_chapter = '';
     $kjv_content = '';
@@ -45,8 +46,8 @@ function showBiblePage($slugs = null): void
     // switch on URL slugs
     switch (true) {
         case ($req['book'] && $req['chap'] && $req['verse']):
-            if (Verse::isValidReference($req['book'], intval($req['chap']), intval($req['verse']))) {
-                $verse_id = Verse::getIDByReference(
+            if (Bible\Verse::isValidReference($req['book'], intval($req['chap']), intval($req['verse']))) {
+                $verse_id = Bible\Verse::getIDByReference(
                     $req['book'],
                     intval($req['chap']),
                     intval($req['verse'])
@@ -60,7 +61,7 @@ function showBiblePage($slugs = null): void
             }
             break;
         case ($req['book'] && $req['chap']):
-            if (Verse::isValidReference($req['book'], intval($req['chap']))) {
+            if (Bible\Verse::isValidReference($req['book'], intval($req['chap']))) {
                 $Collection->loadChapter($req['book'], $req['chap']);
                 $kjv_book    = $Collection->getBook();
                 $kjv_chapter = $Collection->getChapter();
@@ -107,7 +108,7 @@ function showBiblePage($slugs = null): void
     <?php
     if ($are_you_lost) {
             // Display navigation menu
-            $nav_menu_links = Bible::getBooksAsLinks();
+            $nav_menu_links = Bible\Bible::getBooksAsLinks();
         ?>
         <main id="nav-menu">
             <h2>Select a book</h2>
