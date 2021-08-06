@@ -3,7 +3,6 @@
  /**
   * @author Joe Cohen <joe@dingocode.com>
   */
-namespace KJV;
 
 use KJV\Bible;
 
