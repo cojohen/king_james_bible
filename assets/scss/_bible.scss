@@ -61,7 +61,7 @@ main#nav-menu {
     h2 {
         max-width: 300px;
         margin: 0 auto;
-        text-decoration: underline;
+        //text-decoration: underline;
     }
     ul#nav-links {
         padding: 0;
@@ -72,7 +72,7 @@ main#nav-menu {
             a {
                 display: block; 
                 font-size: 14pt;
-                color: $white;
+                //color: $white;
                 text-decoration: none;
             }
         }

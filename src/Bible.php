@@ -25,7 +25,9 @@ class Bible
         for ($i = $start; $i <= $end; $i++) {
             $book = $row[$i]['book'];
 
-            $links .= '<li><a class="" href="' . lcfirst($book) . '/">' . $book . '</a></li>';
+            $links .= '<li><a class="" href="' .
+                str_replace(' ', '_', lcfirst($book)) .
+                '/">' . $book . '</a></li>';
         }
 
         return $links;

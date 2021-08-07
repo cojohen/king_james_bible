@@ -65,7 +65,7 @@ function showBiblePage($slugs = null): void
                 $Collection->loadChapter($req['book'], $req['chap']);
                 $kjv_book    = $Collection->getBook();
                 $kjv_chapter = $Collection->getChapter();
-                $kjv_content = $Collection->getBibleText();
+                $kjv_content = $Collection->getBibleText(array());
             } else {
                 $are_you_lost = true;
                 header("Location: " . $_site_document_root . 'bible/');

@@ -87,11 +87,12 @@ class Collection
     /**
      * @param int[] flags -- verses to flag
      */
-    public function getBibleText($flags = array()): string
+    public function getBibleText($flags = array(), $breaks = false): string
     {
         $page = '';
         foreach ($this->verses as $verse) {
             $page .= $verse->getPageText($flags);
+            $page .= ($breaks ? "\n" : '');
         }
         return $page;
     }
