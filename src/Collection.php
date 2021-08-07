@@ -97,6 +97,38 @@ class Collection
         return $page;
     }
     /**
+     * 
+     */
+    public function getChapterLinks(): array {
+        // domain.com/bible/John/2/
+        $baseURL = explode('bible/' ,$_SERVER['REQUEST_URI'], 2)[0];
+        $baseURL .= 'bible/';
+
+        $nextChapter = Bible::getNextChapter($this->book, $this->chapter);
+        $prevChapter = Bible::getPreviousChapter($this->book, $this->chapter);
+
+        if (sizeof($nextChapter) > 1) {
+            $links['next'] = array( 
+                'title' => $nextChapter['book'] . ' ' . $nextChapter['chapter'],
+                'link' => $baseURL . str_replace(' ', '_', $nextChapter['book'])
+                    . '/' . $nextChapter['chapter'] . '/'
+            );
+        } else {
+            $links['next'] = null;
+        }
+
+        if (sizeof($prevChapter) > 1) {
+            $links['previous'] = array( 
+                'title' => $prevChapter['book'] . ' ' . $prevChapter['chapter'],
+                'link' => $baseURL . str_replace(' ', '_', $prevChapter['book'])
+                    . '/' . $prevChapter['chapter'] . '/'
+            );
+        } else {
+            $links['previous'] = null;
+        }
+        return $links;
+    }
+    /**
      * @param bool breaks
      *
      * returns string JSON

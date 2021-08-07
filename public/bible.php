@@ -5,6 +5,9 @@
   */
 namespace KJV;
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 function showBiblePage($slugs = null): void
 {
     require '../templates/includes/globals.php';
@@ -56,6 +59,7 @@ function showBiblePage($slugs = null): void
                 $kjv_book    = $Collection->getBook();
                 $kjv_chapter = $Collection->getChapter();
                 $kjv_content = $Collection->getBibleText(array($verse_id));
+                $kjv_links   = $Collection->getChapterLinks();
             } else {
                 $are_you_lost = true;
             }
@@ -66,6 +70,7 @@ function showBiblePage($slugs = null): void
                 $kjv_book    = $Collection->getBook();
                 $kjv_chapter = $Collection->getChapter();
                 $kjv_content = $Collection->getBibleText(array());
+                $kjv_links   = $Collection->getChapterLinks();
             } else {
                 $are_you_lost = true;
                 header("Location: " . $_site_document_root . 'bible/');
@@ -119,6 +124,33 @@ function showBiblePage($slugs = null): void
         <?php
     } else {
         ?>
+        <!----------------------------------------------------------------------
+        --
+        --      Navigation
+        --
+        ----------------------------------------------------------------------->
+        <nav id="bible-nav">
+    <?php
+        if ($kjv_links['previous']) {
+    ?>
+            <a href="<?=$kjv_links['previous']['link'];?>"><?=$kjv_links['previous']['title'];?></a>
+    <?php    
+        }
+    ?>    
+            <h2 id="nav-title"><?=$kjv_book;?>&nbsp;<?=$kjv_chapter;?></h2>
+    <?php
+        if ($kjv_links['next']) {
+    ?>        
+            <a href="<?=$kjv_links['next']['link'];?>"><?=$kjv_links['next']['title'];?></a>
+    <?php
+        }
+    ?>
+        </nav>
+        <!----------------------------------------------------------------------
+        --
+        --      Bible Content
+        --
+        ----------------------------------------------------------------------->
         <main id="bible">
             <h2 id="book-title"><?=$kjv_book;?></h2>
             <h3 class="chapter-title">Chapter <?=$kjv_chapter;?></h3>

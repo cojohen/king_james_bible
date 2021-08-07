@@ -96,13 +96,15 @@ class Verse
      *     isValidReference('John')         returns TRUE
      *     isValidReference(3, 16)          returns FALSE
      */
-    public static function isValidReference($book = '', $chap = 0, $verse = 0): bool
+    public static function isValidReference(string $book = '', int $chap = -1, int $verse = -1): bool
     {
-        if ($book and $chap and $verse) {
+        if ($book === '' or $chap === 0 or $verse === 0) {
+            return false;
+        } elseif ($book and $chap > 0 and $verse > 0) {
             $q = "SELECT text.id FROM kjv.text LEFT JOIN books ON text.book=books.id " .
             "WHERE (books.book='$book' AND text.chapter=$chap AND text.verse=$verse) " .
             "LIMIT 1";
-        } elseif ($book and $chap) {
+        } elseif ($book and $chap > 0) {
             $q = "SELECT text.id FROM kjv.text LEFT JOIN books ON text.book=books.id " .
             " WHERE (books.book='$book' AND text.chapter=$chap) LIMIT 1";
         } elseif ($book) {
