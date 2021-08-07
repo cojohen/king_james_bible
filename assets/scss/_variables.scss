@@ -1,12 +1,15 @@
 // Variables
 
  // Color palette -- https://coolors.co/000d14-d62828-f77f00-fcbf49-eae2b7
- $primary:  #000D14;
- $secondary:#F77F00;
- $white:    #FFFFFF;
- $grey:     #EAE2B7;
- $red:      #D62828;
- $KJV:      #FCBF49;
+$black:     #000D14;
+$white:     #fff; //#f1faee;
+$red:       #D62828;
+$yellow:    #b38b3c;
+$blue:      #3d72a4;
+$grey:      #636060;
+$highlight: #FFEC94;
+//$secondary:#F77F00;
+ 
 
  // Breakpoints
 $xl:    1200px;
@@ -15,5 +18,5 @@ $md:    768px;
 $sm:    576px;
 
 // Typeface
-$font-main: 'Courier New', Courier, monospace;
-$font-head: Verdana, Geneva, Tahoma, sans-serif;
+$font-main:  serif, 'Times New Roman', Times;
+$font-head: Georgia, 'Times New Roman', Times, serif;

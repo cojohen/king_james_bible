@@ -94,11 +94,11 @@ function showBiblePage($slugs = null): void
     </head>
     <body>
         <header id="page-header">
-            <div id="logo">
+            <!--<div id="logo">
                     <a href="<?=$_site_document_root;?>">
                         <h1>Search <b class="KJV">KJV</b></h1>
                     </a>
-            </div>
+            </div>-->
             <div id="bible-navigation">
                 <?php
                 //include 'includes/bible-navigation.php';
@@ -121,7 +121,7 @@ function showBiblePage($slugs = null): void
         ?>
         <main id="bible">
             <h2 id="book-title"><?=$kjv_book;?></h2>
-            <h3 class="chapter-title"><?=$kjv_chapter;?></h3>
+            <h3 class="chapter-title">Chapter <?=$kjv_chapter;?></h3>
             <p class="bible-text"><?=$kjv_content;?></p>
         </main>
         <?php

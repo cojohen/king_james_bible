@@ -1,39 +1,53 @@
 main#bible {
-    border: solid 1px white;
-    max-width: 800px;
-    text-align: left;
+    max-width: 840px;
+    text-align: center;
     margin: 0 auto;
-    padding: 3em;
+    //padding: 3em;
+    border-top: dotted 1px $grey;
+    margin-top: 76px;
 
     h2 {
-        color: $white;
-        font-size: 28pt;
-        //padding-top: 2em;
-        display: inline-block;
+        font-size: 54px;
+        font-weight: normal;
+        width: 100%;
+        letter-spacing: 2px;
+        margin: 1em 0 .1em;
+
     }
 
     h3 {
-        color: $white;
-        font-size: 28pt;
-        //border: solid 1px blue;
-        display: inline;
-        margin: 0;
+        font-size: 18px;
+        font-weight: normal;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: $grey;
+        margin: 0 auto 5em;
+        padding-bottom: 2em;
+        border-bottom: dotted 1px $grey;
     }
 
     p {
-        font-size: 12pt;
-        padding: 0em 3em;
+        text-align: left;
 
         span.v { 
-            color: $KJV;
-            font-size: 9pt;
-            padding: 3px;
-            //display: inline;
+            color: $black;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: $font-head;
+            display: inline;
+            vertical-align: text-top;
+            padding: 0 7px;
+            //white-space: pre-line;
+        }
+        span.v:before { 
+            content: ''; 
+            //white-space:pre-line;
         }
 
         span.flag {
-            //color: $KJV;
-            text-decoration: underline;
+            background-color: rgba(255, 236, 148, .5)
+            //text-decoration: underline;
+            //font-weight: bold;
         }
     }
 }

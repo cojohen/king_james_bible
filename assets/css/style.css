@@ -6,22 +6,27 @@
  *      
  */
 body {
-  background: #000D14;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 10pt;
-  font-family: "Courier New", Courier, monospace;
+  background: #fff;
+  color: #000D14;
+  font-size: 24px;
+  line-height: 32px;
+  text-rendering: optimizeLegibility;
+  word-wrap: break-word;
+  font-family: serif, "Times New Roman", Times;
+}
+body h1, body h2, body h3, body h4, body h5, body h6 {
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 body main {
   width: 100%;
 }
 body main h1 {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 3em;
   margin: 4em auto 0;
 }
 body main h1 .KJV {
-  color: #FCBF49;
+  color: #b38b3c;
   text-shadow: 0px 0px 1px rgba(255, 255, 255, 0);
   transition: all 0.2s ease-in-out;
 }
@@ -31,9 +36,9 @@ body main h1:hover .KJV {
 body main #search-input {
   display: block;
   background-color: transparent;
-  border: solid 2px #EAE2B7;
+  border: solid 2px #000D14;
   border-radius: 1em;
-  color: #FFFFFF;
+  color: #fff;
   height: 2em;
   width: 400px;
   margin: 1em auto;
@@ -65,7 +70,7 @@ body main #search-results #search-results-list li div {
   line-height: 1.2em;
 }
 body main #search-results #search-results-list li div.book, body main #search-results #search-results-list li div.ref {
-  color: #FCBF49;
+  color: #b38b3c;
   padding-bottom: 0;
 }
 body main #search-results #search-results-list li div.ref {
@@ -81,34 +86,46 @@ r {
 }
 
 main#bible {
-  border: solid 1px white;
-  max-width: 800px;
-  text-align: left;
+  max-width: 840px;
+  text-align: center;
   margin: 0 auto;
-  padding: 3em;
+  border-top: dotted 1px #636060;
+  margin-top: 76px;
 }
 main#bible h2 {
-  color: #FFFFFF;
-  font-size: 28pt;
-  display: inline-block;
+  font-size: 54px;
+  font-weight: normal;
+  width: 100%;
+  letter-spacing: 2px;
+  margin: 1em 0 0.1em;
 }
 main#bible h3 {
-  color: #FFFFFF;
-  font-size: 28pt;
-  display: inline;
-  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #636060;
+  margin: 0 auto 5em;
+  padding-bottom: 2em;
+  border-bottom: dotted 1px #636060;
 }
 main#bible p {
-  font-size: 12pt;
-  padding: 0em 3em;
+  text-align: left;
 }
 main#bible p span.v {
-  color: #FCBF49;
-  font-size: 9pt;
-  padding: 3px;
+  color: #000D14;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  display: inline;
+  vertical-align: text-top;
+  padding: 0 7px;
+}
+main#bible p span.v:before {
+  content: "";
 }
 main#bible p span.flag {
-  text-decoration: underline;
+  background-color: rgba(255, 236, 148, 0.5);
 }
 
 main#nav-menu {
@@ -134,7 +151,7 @@ main#nav-menu ul#nav-links li {
 main#nav-menu ul#nav-links li a {
   display: block;
   font-size: 14pt;
-  color: #FFFFFF;
+  color: #fff;
   text-decoration: none;
 }
 
