@@ -87,10 +87,41 @@ main #search-results #search-results-list li div .searchTerm {
   text-decoration: underline;
 }
 
+nav#bible-nav {
+  margin: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+}
+nav#bible-nav h2 {
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: normal;
+  background: coral;
+  height: 20px;
+  margin: 0;
+  padding: 0px;
+  visibility: hidden;
+}
+nav#bible-nav a {
+  color: #b38b3c;
+  font-size: 20px;
+  line-height: 20px;
+  display: block;
+  height: 20px;
+  text-align: center;
+  text-decoration: none;
+}
+
 main#bible {
   max-width: 840px;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 4em;
   border-top: dotted 1px #636060;
   margin-top: 76px;
 }
@@ -107,7 +138,7 @@ main#bible h3 {
   text-transform: uppercase;
   letter-spacing: 3px;
   color: #636060;
-  margin: 0 auto 5em;
+  margin: 0 auto 3em;
   padding-bottom: 2em;
   border-bottom: dotted 1px #636060;
 }
