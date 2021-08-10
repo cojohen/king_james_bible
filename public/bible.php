@@ -142,7 +142,8 @@ function showBiblePage($slugs = null): void
     <?php    
         }
     ?>    
-            <h2 id="nav-title"><?=$kjv_book;?>&nbsp;<?=$kjv_chapter;?></h2>
+            <!--<h2 id="nav-title"><?=$kjv_book;?>&nbsp;<?=$kjv_chapter;?></h2>-->
+            <a href="http://localhost/kjv/public/search.php">Search KJV</a>
     <?php
         if ($kjv_links['next']) {
     ?>        

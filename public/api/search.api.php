@@ -8,8 +8,6 @@ use KJV\Bible;
 
 require_once('../../src/Collection.php');
 
-
-
 $response = '';
 
 if (isset($_REQUEST['q'])) {

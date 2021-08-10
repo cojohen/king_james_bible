@@ -75,6 +75,7 @@ $("#search-submit").on('click', function(){
                     list_li += '</li>';
                 }
                 //$("#search-results-list").fadeOut().next().delay(100);
+                $("#title").animate({'margin-top' : '10vh'}, 'slow');
                 $("#search-results-list").hide().html(list_li).fadeIn("slow");
             } else {
                 $("#search-results-list").html('No results').hide().fadeIn("slow");

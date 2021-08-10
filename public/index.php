@@ -15,7 +15,7 @@ for ($i = 0; $i < sizeof($scriptName); $i++) {
 }
 
 $urlSlugs = array_values($requestURI);
-$baseSlug = $urlSlugs[0];
+$baseSlug = isset($urlSlugs[0]) ? $urlSlugs[0] : false;
 
 switch ($baseSlug) {
     case 'bible':

@@ -25,7 +25,7 @@ function showSearchPage(): void
     <body>
         <main id="main">
             <div id="logo">
-                <h1 class="text-reflect">Search <b class="KJV">KJV</b></h1>
+                <h1 id="title">Search <b class="KJV">KJV</b></h1>
             </div>
             <input type="text" id="search-input" name="search">
             <input type="button" id="search-submit" name="submit" value="Search">
