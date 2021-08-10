@@ -90,7 +90,12 @@ function showBiblePage($slugs = null): void
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?=$kjv_book . ' ' . $kjv_chapter . (isset($req['verse']) and  $req['verse'] != '' ? ':' . $req['verse'] : '' );?></title>
+        <title>
+            <?=$kjv_book . ' ' . $kjv_chapter
+            . (isset($req['verse']) and  $req['verse'] != '' ? ':'
+            . $req['verse'] : '' );
+            ?>
+        </title>
     <?php
         include '../templates/includes/styles.php';
         include '../templates/includes/jquery.php';
