@@ -94,6 +94,7 @@ nav#bible-nav {
   left: 0;
   height: 40px;
   width: 100vw;
+  background: #fff;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   align-items: center;

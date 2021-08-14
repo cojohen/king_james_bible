@@ -181,9 +181,12 @@ class Collection
             // omit needless search terms
             $search = str_replace($this->omit_search_terms, ' ', $phrase);
 
+            ////$sql = "SELECT DISTINCT text.id FROM kjv.text WHERE MATCH (`text`) " .
+            ////" AGAINST ('$search' IN NATURAL LANGUAGE MODE) ORDER BY MATCH " .
+            ////"(`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) DESC LIMIT 20;";
             $sql = "SELECT DISTINCT text.id FROM kjv.text WHERE MATCH (`text`) " .
-            " AGAINST ('$search' IN NATURAL LANGUAGE MODE) ORDER BY MATCH " .
-            "(`text`) AGAINST ('$search' IN NATURAL LANGUAGE MODE) DESC LIMIT 20;";
+            " AGAINST ('$search' IN NATURAL LANGUAGE MODE) ORDER BY text.id ASC LIMIT 20;";
+
             $db_rows = array_merge($db_rows, $db->query($sql)->fetchAll());
 
             // update results count

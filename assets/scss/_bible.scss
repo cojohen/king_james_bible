@@ -1,12 +1,11 @@
 nav#bible-nav {
-    //border: solid 1px $grey;
     margin: 0;
     position: fixed;
     top: 0;
     left:0;
     height: 40px;
     width: 100vw;
-    //background: $white;
+    background: $white;
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
     align-items: center;
@@ -15,11 +14,9 @@ nav#bible-nav {
         font-size: 20px;
         line-height: 20px;
         font-weight: normal;
-        //background: coral;
         height: 20px;
         margin: 0;
         padding: 0px;
-        //visibility:hidden;
     }
 
     a {
